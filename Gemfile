@@ -51,7 +51,7 @@ group :test, :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'terminal-notifier-guard'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'simplecov'
   gem 'database_cleaner'
   gem 'guard', '>=2.1.0'
