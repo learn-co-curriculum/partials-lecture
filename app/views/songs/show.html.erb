@@ -10,5 +10,11 @@
   <%= link_to @song.artist.name, @song.artist if @song.artist %>
 </p>
 
+<p>
+  <strong>Genres:</strong>
+  <%#= @song.genres.collect(&:name).to_sentence %>
+  <%= @song.genres.collect{|g| g.name}.to_sentence %>
+</p>
+
 <%= link_to 'Edit', edit_song_path(@song) %> |
 <%= link_to 'Back', songs_path %>
