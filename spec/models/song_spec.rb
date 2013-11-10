@@ -23,4 +23,26 @@ describe Song do
 
     end
   end
+
+  context "with genres" do
+    describe "#genre_names=" do
+      it "accepts a CSV string of genre names and adds them" do
+        song = Song.new
+        song.genre_names = "pop, rock, jazz"
+        song.save
+
+        expect(song.genres.size).to eq(3)
+      end
+    end
+
+    describe '#add_genre' do
+      it 'builds the associated song_genre to add the genre' do
+        song = Song.new
+        song.add_genre(Genre.create(:name => "pop"))
+        song.save
+
+        expect(song.song_genres.first.genre).to eq(Genre.find_by(:name => "pop"))
+      end
+    end
+  end
 end
