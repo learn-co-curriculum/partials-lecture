@@ -93,3 +93,5 @@ guard 'rspec' do
 end
 ```
 
+
+<a href='https://learn.co/lessons/playlister-rails' data-visibility='hidden'>View this lesson on Learn.co</a>
