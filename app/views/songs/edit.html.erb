@@ -1,6 +1,10 @@
 <h1>Editing song</h1>
 
-<%= render 'form' %>
+<%= form_for(@song) do |form_builder| %>
+
+  <%= render partial: 'form_fields', locals: {f: form_builder} %>
+<% end %>
+
 
 <%= link_to 'Show', @song %> |
 <%= link_to 'Back', songs_path %>
