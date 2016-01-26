@@ -1,0 +1,1228 @@
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (3.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateSongs (20131105194445)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "songs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20131105194445"]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+Migrating to CreateArtists (20131105200546)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "artists" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20131105200546"]]
+  [1m[36m (5.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddArtistIdToSongs (20131105200820)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "songs" ADD "artist_id" integer[0m
+  [1m[35m (0.2ms)[0m  CREATE INDEX "index_songs_on_artist_id" ON "songs" ("artist_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20131105200820"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+Migrating to CreateSongGenres (20131105223231)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "song_genres" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "song_id" integer, "genre_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_song_genres_on_song_id" ON "song_genres" ("song_id")[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_song_genres_on_genre_id" ON "song_genres" ("genre_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20131105223231"]]
+  [1m[35m (3.8ms)[0m  commit transaction
+Migrating to CreateGenres (20131105223345)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "genres" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20131105223345"]]
+  [1m[35m (3.8ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (8.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Peso"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "dance"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'A$AP Rocky' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "A$AP Rocky"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 1  [["artist_id", 1], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 1], ["song_id", 1], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Larry Csonka"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "indie"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mArtist Load (0.2ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Action Bronson' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Action Bronson"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 2[0m  [["artist_id", 2], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 2], ["song_id", 2], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Rolling In the Deep"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "folk"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Adele' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Adele"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 3  [["artist_id", 3], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 3], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Someone Like You"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "country"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Adele' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 4  [["artist_id", 3], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 4], ["song_id", 4], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Streetz Tonight"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'AraabMuzik' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "AraabMuzik"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 5  [["artist_id", 4], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 5], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Mona Lisa"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "pop"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Atlas Sound' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Atlas Sound"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 6[0m  [["artist_id", 5], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 6], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "212"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "hip-hop"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Azealia Banks' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Azealia Banks"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 7  [["artist_id", 6], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 6], ["song_id", 7], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Ice Cream (Feat. Matias Aguayo)"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "rock"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Battles' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Battles"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 8[0m  [["artist_id", 7], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 8], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "1+1"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.2ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "house"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.0ms)[0m  commit transaction
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Beyonce' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Beyonce"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 9  [["artist_id", 8], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 8], ["song_id", 9], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Countdown"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Beyonce' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 10[0m  [["artist_id", 8], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 10], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Riding for the Feeling"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Bill Callahan' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Bill Callahan"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 11[0m  [["artist_id", 9], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 2], ["song_id", 11], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Getting Me Down"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Blawan' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Blawan"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 12[0m  [["artist_id", 10], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 6], ["song_id", 12], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Holocene"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Bon Iver' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Bon Iver"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 13[0m  [["artist_id", 11], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 8], ["song_id", 13], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Perth"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Bon Iver' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 14  [["artist_id", 11], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 14], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (4.8ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Till the World Ends (The Femme Fatale Remix) (feat.Kesha & Nicki Minaj)"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Britney Spears' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Britney Spears"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (4.8ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 15  [["artist_id", 12], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 15], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Street Halo"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Burial' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Burial"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 16  [["artist_id", 13], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 16], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "County Line"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Cass McCombs' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Cass McCombs"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 17  [["artist_id", 14], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 4], ["song_id", 17], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Stay Away"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Charli XCX' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Charli XCX"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 18  [["artist_id", 15], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 18], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Coastin'"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Cities Aviv' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Cities Aviv"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 19  [["artist_id", 16], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 1], ["song_id", 19], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (5.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Motivation"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Clams Casino' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Clams Casino"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 20  [["artist_id", 17], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 6], ["song_id", 20], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "The Great Pan is Dead"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Cold Cave' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Cold Cave"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 21  [["artist_id", 18], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 8], ["song_id", 21], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Abducted"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Cults' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Cults"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 22  [["artist_id", 19], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 22], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Need You Now"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "rap"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mArtist Load (0.2ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Cut Copy' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Cut Copy"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (4.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 23[0m  [["artist_id", 20], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 9], ["song_id", 23], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Monopoly"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'electro' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "genres" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "electro"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Danny Brown' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Danny Brown"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 24  [["artist_id", 21], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 10], ["song_id", 24], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Chinatown"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Destroyer' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Destroyer"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 25  [["artist_id", 22], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 4], ["song_id", 25], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "I'm On One (ft. Drake, Rick Ross & Lil Wayne)"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'DJ Khaled' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "DJ Khaled"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 26  [["artist_id", 23], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 26], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Killer Dope"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'DJ Quik' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "DJ Quik"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 27  [["artist_id", 24], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 4], ["song_id", 27], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Buried Alive (Interlude) (Feat. Kendrick Lamar)"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Drake' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Drake"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 28  [["artist_id", 25], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 1], ["song_id", 28], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Headlines"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Drake' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 29[0m  [["artist_id", 25], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 29], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Wrong Feels Right"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Dum Dum Girls' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Dum Dum Girls"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 30[0m  [["artist_id", 26], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 30], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "My Mistakes"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Eleanor Friedberger' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Eleanor Friedberger"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 31[0m  [["artist_id", 27], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 4], ["song_id", 31], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "California"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'EMA' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "EMA"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 32[0m  [["artist_id", 28], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 6], ["song_id", 32], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "The Wolf"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.9ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'electro' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Fever Ray' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Fever Ray"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 33[0m  [["artist_id", 29], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 10], ["song_id", 33], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Grown Ocean"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Fleet Foxes' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Fleet Foxes"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 34[0m  [["artist_id", 30], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 34], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Novacane"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1[0m
+  [1m[35mArtist Load (0.2ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Frank Ocean' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Frank Ocean"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 35[0m  [["artist_id", 31], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 1], ["song_id", 35], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Queen of Hearts"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.2ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Fucked Up' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Fucked Up"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 36[0m  [["artist_id", 32], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 36], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (5.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Glass Jar"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.4ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'electro' LIMIT 1[0m
+  [1m[35mArtist Load (0.2ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Gang Gang Dance' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Gang Gang Dance"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 37[0m  [["artist_id", 33], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 10], ["song_id", 37], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Vomit"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.2ms)[0m  commit transaction
+  [1m[36mGenre Load (0.3ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Girls' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Girls"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 38[0m  [["artist_id", 34], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 8], ["song_id", 38], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Vanessa"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.0ms)[0m  commit transaction
+  [1m[36mGenre Load (0.2ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Grimes' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Grimes"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 39[0m  [["artist_id", 35], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 39], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Jam For Jerry"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Holy Ghost' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Holy Ghost"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 40[0m  [["artist_id", 36], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 8], ["song_id", 40], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "You're Blessed"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Iceage' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Iceage"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 41[0m  [["artist_id", 37], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 9], ["song_id", 41], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Meltdown"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.0ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Ill Blu' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Ill Blu"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 42[0m  [["artist_id", 38], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 8], ["song_id", 42], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (4.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Another Girl"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Jacques Greene' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Jacques Greene"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 43[0m  [["artist_id", 39], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 43], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "BTSTU"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'electro' LIMIT 1[0m
+  [1m[35mArtist Load (0.2ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Jai Paul' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Jai Paul"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 44[0m  [["artist_id", 40], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 10], ["song_id", 44], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "The Wilhelm Scream"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'electro' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'James Blake' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "James Blake"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 45[0m  [["artist_id", 41], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 10], ["song_id", 45], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "I'll Take Care Of You"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Jamie xx & Gill Scott-Heron' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Jamie xx & Gill Scott-Heron"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 46[0m  [["artist_id", 42], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 46], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Far Nearer"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Jamie xx' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Jamie xx"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 47[0m  [["artist_id", 43], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 7], ["song_id", 47], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Niggas In Paris"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.2ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Jay-Z & Kanye West' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Jay-Z & Kanye West"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 48[0m  [["artist_id", 44], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 1], ["song_id", 48], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Otis (ft. Otis Redding)"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (3.3ms)[0m  commit transaction
+  [1m[36mGenre Load (0.2ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Jay-Z & Kanye West' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 49  [["artist_id", 44], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 3], ["song_id", 49], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Believer"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'John Maus' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "John Maus"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (1.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 50  [["artist_id", 45], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 2], ["song_id", 50], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Prizewinning"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Julianna Barwick' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Julianna Barwick"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 51  [["artist_id", 46], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 51], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Banana Ripple"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Junior Boys' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Junior Boys"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 52  [["artist_id", 47], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 2], ["song_id", 52], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Broken Record"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (3.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Katy B' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Katy B"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 53  [["artist_id", 48], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["genre_id", 5], ["song_id", 53], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Motivation (ft. Lil Wayne)"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Kelly Rowland' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00], ["name", "Kelly Rowland"], ["updated_at", Tue, 26 Jan 2016 19:50:25 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 54  [["artist_id", 49], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 8], ["song_id", 54], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "A.D.H.D"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Kendrick Lamar' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Kendrick Lamar"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 55  [["artist_id", 50], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 9], ["song_id", 55], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Gucci Gucci"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.9ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Kreayshawn' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Kreayshawn"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 56  [["artist_id", 51], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 8], ["song_id", 56], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Jesus Fever"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Kurt Vile' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Kurt Vile"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 57  [["artist_id", 52], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 7], ["song_id", 57], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Video Games"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.9ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Lana Del Rey' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Lana Del Rey"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 58  [["artist_id", 53], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 58], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Generation"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Liturgy' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Liturgy"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 59  [["artist_id", 54], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 9], ["song_id", 59], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Intro (ft. Zola Jesus)"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'M83' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "M83"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 60  [["artist_id", 55], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 2], ["song_id", 60], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Midnight City"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'M83' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 61[0m  [["artist_id", 55], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 8], ["song_id", 61], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Huzzah (Remix ft. Despot, Das Racist, Danny Brown and El-P)"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.2ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Mr. Muthafuckin eXquire' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Mr. Muthafuckin eXquire"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 62[0m  [["artist_id", 56], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 7], ["song_id", 62], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Polish Girl"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36mGenre Load (0.2ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Neon Indian' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Neon Indian"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 63[0m  [["artist_id", 57], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 7], ["song_id", 63], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Space Is Only Noise If You Can See"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.1ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'house' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Nicholas Jaar' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Nicholas Jaar"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 64[0m  [["artist_id", 58], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 8], ["song_id", 64], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Super Bass"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Nicki Minaj' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Nicki Minaj"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 65[0m  [["artist_id", 59], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 9], ["song_id", 65], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Replica"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.0ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Oneohtrix Point Never' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Oneohtrix Point Never"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 66[0m  [["artist_id", 60], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 4], ["song_id", 66], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Last Night At The Jetty"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Panda Bear' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Panda Bear"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 67[0m  [["artist_id", 61], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 2], ["song_id", 67], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "All the Sun That Shines"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.9ms)[0m  commit transaction
+  [1m[36mGenre Load (0.3ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Peaking Lights' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Peaking Lights"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 68[0m  [["artist_id", 62], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 2], ["song_id", 68], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Words That Maketh Murder"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'PJ Harvey' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "PJ Harvey"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 69[0m  [["artist_id", 63], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 3], ["song_id", 69], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Ungirthed"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.1ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Purity Ring' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Purity Ring"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 70[0m  [["artist_id", 64], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 9], ["song_id", 70], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Green Aisles"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Real Estate' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Real Estate"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 71[0m  [["artist_id", 65], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 4], ["song_id", 71], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "It's Real"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (4.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Real Estate' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 72  [["artist_id", 65], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 72], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (4.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "We Found Love (ft. Calvin Harris)"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Rihanna' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Rihanna"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 73  [["artist_id", 66], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 2], ["song_id", 73], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Changes"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Sandro Perri' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Sandro Perri"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 74  [["artist_id", 67], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 5], ["song_id", 74], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Wildfire"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'SBTRKT' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "SBTRKT"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 75  [["artist_id", 68], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 4], ["song_id", 75], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Pencil Pimp"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rap' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Sepalcure' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Sepalcure"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 76  [["artist_id", 69], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 9], ["song_id", 76], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Swerve... The Reeping of All That Is Worthwhile (Noir Not Withstanding)"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36mArtist Load (0.2ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Shabazz Palaces' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Shabazz Palaces"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 77  [["artist_id", 70], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 2], ["song_id", 77], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Zan With That Lean"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.4ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Soulja Boy' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Soulja Boy"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 78  [["artist_id", 71], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 78], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Cruel"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'electro' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'St. Vincent' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "St. Vincent"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 79  [["artist_id", 72], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 10], ["song_id", 79], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Then It's White"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'The Field' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Field"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (4.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 80  [["artist_id", 73], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 7], ["song_id", 80], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Whirring"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'rock' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'The Joy Formidable' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Joy Formidable"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 81  [["artist_id", 74], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 7], ["song_id", 81], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Bataille"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'The Men' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Men"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 82  [["artist_id", 75], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 82], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "How Deep Is Your Love"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'The Rapture' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Rapture"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 83  [["artist_id", 76], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 3], ["song_id", 83], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.6ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "House of Balloons"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'The Weeknd' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Weeknd"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 84  [["artist_id", 77], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 84], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Morning"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'The Weeknd' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 85[0m  [["artist_id", 77], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 1], ["song_id", 85], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "The Dream"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.6ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'pop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Thee Oh Sees' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Thee Oh Sees"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (4.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 86[0m  [["artist_id", 78], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 5], ["song_id", 86], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "For Love I Come"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Thundercat' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Thundercat"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 87[0m  [["artist_id", 79], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 1], ["song_id", 87], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Gin Nation"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Tiger & Woods' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Tiger & Woods"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 88[0m  [["artist_id", 80], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 88], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Snooze 4 Love"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Todd Terje' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Todd Terje"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 89[0m  [["artist_id", 81], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 89], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "New Beat"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.3ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Toro Y Moi' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Toro Y Moi"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 90[0m  [["artist_id", 82], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 1], ["song_id", 90], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Bizness"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'tUnE-yArDs' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "tUnE-yArDs"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 91[0m  [["artist_id", 83], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 1], ["song_id", 91], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Powa"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (3.3ms)[0m  commit transaction
+  [1m[36mGenre Load (0.1ms)[0m  [1mSELECT "genres".* FROM "genres" WHERE "genres"."name" = 'country' LIMIT 1[0m
+  [1m[35mArtist Load (0.1ms)[0m  SELECT "artists".* FROM "artists" WHERE "artists"."name" = 'tUnE-yArDs' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 92  [["artist_id", 83], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 4], ["song_id", 92], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Goodbye Bread"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'dance' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Ty Segall' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Ty Segall"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 93  [["artist_id", 84], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 1], ["song_id", 93], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Yonkers"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1
+  [1m[36mArtist Load (0.2ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Tyler the Creator' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Tyler the Creator"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 94  [["artist_id", 85], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 3], ["song_id", 94], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Ffunny Ffrends"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (3.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Unknown Mortal Orchestra' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Unknown Mortal Orchestra"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 95  [["artist_id", 86], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 95], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Amor Fati"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'folk' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Washed Out' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Washed Out"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 96  [["artist_id", 87], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 3], ["song_id", 96], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.4ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Romance"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Wild Flag' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Wild Flag"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 97  [["artist_id", 88], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 97], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Get Away"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.1ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'indie' LIMIT 1
+  [1m[36mArtist Load (0.1ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Yuck' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Yuck"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 98  [["artist_id", 89], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 2], ["song_id", 98], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "songs" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Out Getting Ribs"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mGenre Load (0.2ms)[0m  SELECT "genres".* FROM "genres" WHERE "genres"."name" = 'hip-hop' LIMIT 1
+  [1m[36mArtist Load (0.2ms)[0m  [1mSELECT "artists".* FROM "artists" WHERE "artists"."name" = 'Zoo Kid' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "artists" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["name", "Zoo Kid"], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "songs" SET "artist_id" = ?, "updated_at" = ? WHERE "songs"."id" = 99  [["artist_id", 90], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "song_genres" ("created_at", "genre_id", "song_id", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00], ["genre_id", 6], ["song_id", 99], ["updated_at", Tue, 26 Jan 2016 19:50:26 UTC +00:00]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mSong Load (1.4ms)[0m  [1mSELECT "songs".* FROM "songs"[0m
+  [1m[35mSongGenre Load (0.8ms)[0m  SELECT "song_genres".* FROM "song_genres"
+  [1m[36mArtist Load (0.8ms)[0m  [1mSELECT "artists".* FROM "artists"[0m
+  [1m[35mGenre Load (0.3ms)[0m  SELECT "genres".* FROM "genres"
