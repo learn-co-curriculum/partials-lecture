@@ -8,12 +8,18 @@
 <br>
 <h3>Songs:</h3>
 <ul>
+<% @genre.songs.each do |song| %>
+    <p>
+      <strong>Song Name:</strong>
+      <%= song.name %>
+    </p>
 
-<%= render partial: "songs/song_details", collection: @genre.songs, as: :song %>
-
-  <%# @genre.songs.each do |song| %>
-  <%#= render partial: "songs/song_details", locals: {song: song} %>
-  <%#end %>
+    <p>
+      <strong>Artist Name:</strong>
+      <%= link_to song.artist.name, song.artist if song.artist %>
+    </p>
+    <br>
+  <%= end %>
 </ul>
 
 <%= link_to 'Edit', edit_genre_path(@genre) %> |
