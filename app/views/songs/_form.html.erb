@@ -1,0 +1,21 @@
+<%= form_for(@song) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <label for="song_artist_name">Artist Name</label><br>
+    <input type="text" name="song[artist_name]" id="song_artist_name">
+  </div>
+
+  <div class="field">
+    <label for="song_artist_name">Comma Separated Genres</label><br>
+    <input type="text" name="song[genre_names]" id="song_genre_names">
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

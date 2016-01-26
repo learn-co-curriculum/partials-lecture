@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', '1.3.11'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -52,7 +52,6 @@ group :test, :development do
   gem 'binding_of_caller'
   gem 'terminal-notifier-guard'
   gem 'factory_girl_rails'
-  gem 'simplecov'
   gem 'database_cleaner'
   gem 'guard', '>=2.1.0'
   gem 'guard-rspec'
