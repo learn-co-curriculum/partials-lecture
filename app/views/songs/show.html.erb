@@ -1,18 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @song.name %>
-</p>
+<%= render partial: 'song_details', locals: {song: @song} %>
 
-<p>
-  <strong>Artist Name:</strong>
-  <%= link_to @song.artist.name, @song.artist if @song.artist %>
-</p>
-
+<!-- the below convention would work *if* our partial was called _song -->
+<%#= render @song %>
 <p>
   <strong>Genres:</strong>
-  <%#= @song.genres.collect(&:name).to_sentence %>
   <%= @song.genres.collect{|g| g.name}.to_sentence %>
 </p>
 

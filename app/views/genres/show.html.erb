@@ -1,9 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Genre Name:</strong>
   <%= @genre.name %>
 </p>
+
+<br>
+<h3>Songs:</h3>
+<ul>
+
+<%= render partial: "songs/song_details", collection: @genre.songs, as: :song %>
+
+  <%# @genre.songs.each do |song| %>
+  <%#= render partial: "songs/song_details", locals: {song: song} %>
+  <%#end %>
+</ul>
 
 <%= link_to 'Edit', edit_genre_path(@genre) %> |
 <%= link_to 'Back', genres_path %>
