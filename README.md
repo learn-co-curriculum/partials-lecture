@@ -212,12 +212,19 @@ So, how can we solve this?
 <%= render partial: 'song_details', locals: {song: @song} %>
 ```
 
+
+
 ```html
 <%= render partial: 'song_details', locals: {song: song} %>
 ```
 
 In this way, we can dynamically pass in the appropriate song object whenever and wherever we render the partial. Think of it as calling the `render` method with keyword arguments. Each time, we are setting the local variable, `song`, inside of the partial, equal to whatever object gets set to `locals: {song: some_song_object}`. 
 
+`render` has a polymorphic interface. the way we use it changes. if we pass it a hash, it expects the full thing above. if first arg is a string, it reacts appropriate and expects second arg to be hash of locals:
+
+```erb
+<%=render 'songs/song_details', song: song%>
+```
 ## Rendering A Collection via a Partial
 
 Let's take a moment and refactor our rendering of the `song_details` partial on the genre show page. Here, we are using the partial inside of our iteration over a genre's collection of songs. This is such a common practice, that Rails provides us with an even easier way to do it:
@@ -225,6 +232,7 @@ Let's take a moment and refactor our rendering of the `song_details` partial on 
 ```html
 <%= render partial: "songs/song_details", collection: @genre.songs, as: :song %>
 ```
+
 
 In fact, there is an even more concise way to render a partial with a collection of objects:
 
