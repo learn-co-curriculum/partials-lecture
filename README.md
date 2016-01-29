@@ -255,3 +255,4 @@ Another common usage of partials is in rendering forms. Let's take a look at the
 * Step 1: Make a partial, `songs/_form_fields.html.erb`. 
 * Step 2: Paste our form fields in the partial
 * Step 3: Pass the local variable, `f`, into the partial when we render it on the pages.
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/partials-lecture' title='Intro'>Intro</a> on Learn.co and start learning to code for free.</p>
